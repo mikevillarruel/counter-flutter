@@ -1,4 +1,3 @@
-import 'package:counter/src/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class CounterPage extends StatefulWidget{
@@ -29,18 +28,34 @@ class _CounterPageState extends State<CounterPage>{
           mainAxisAlignment: MainAxisAlignment.center,
         )
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // print('$_counter');
-
-          setState(() {
-            _counter++;
-          });
-        
-        },
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: _createButtons(),
     );
+  }
+  
+  Widget _createButtons(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        SizedBox(width: 30),
+        FloatingActionButton(child: const Icon(Icons.exposure_zero),onPressed: _reset),
+        const Expanded(child: SizedBox()),
+        FloatingActionButton(child: const Icon(Icons.remove),onPressed: _subtract),
+        const SizedBox(width: 5.0),
+        FloatingActionButton(child: const Icon(Icons.add), onPressed: _add),
+      ],
+    );
+  }
+
+  void _add() {
+    setState(() => _counter++);
+  }
+
+  void _subtract() {
+    setState(() => _counter--);
+  }
+
+  void _reset() {
+    setState(() => _counter = 0);
   }
   
 }
